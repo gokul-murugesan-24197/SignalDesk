@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SignalDesk — Zoho Desk</title>
+  <title>SignalDesk</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f5a623'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Arial,sans-serif' font-size='14' font-weight='700' fill='%231d2433'%3ESD%3C/text%3E%3C/svg%3E">
   <style>
     :root {
       --bg: #f4f6fb;
@@ -34,7 +35,20 @@
     button { font: inherit; cursor: pointer; }
     .wrap { max-width: 1080px; margin: 0 auto; padding: 22px 18px 64px; }
     .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
-    .brand { font-weight: 750; letter-spacing: -0.03em; }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #f5a623;
+      color: #1d2433;
+      display: grid;
+      place-items: center;
+      font-weight: 750;
+      font-size: 13px;
+    }
+    .brand strong { display: block; font-size: 16px; letter-spacing: -0.03em; }
+    .brand span { color: var(--muted); font-size: 12px; }
     .theme {
       border: 1px solid var(--line);
       background: var(--card);
@@ -166,6 +180,38 @@
     .counts span { background: rgba(255,255,255,0.16); border-radius: 8px; padding: 4px 8px; }
 
     ul { margin: 8px 0 0; padding-left: 18px; }
+    .api {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+      max-height: 320px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .call {
+      background: var(--soft);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+    }
+    .call b { display: block; margin-bottom: 4px; }
+    .verb {
+      display: inline-block;
+      min-width: 52px;
+      margin-right: 8px;
+      font-size: 12px;
+      font-weight: 750;
+      color: #0c8f4e;
+    }
+    pre {
+      margin: 8px 0 0;
+      padding: 10px 12px;
+      overflow: auto;
+      border-radius: 10px;
+      background: #10151e;
+      color: #e8eef6;
+      font: 12.5px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
     @media (max-width: 900px) {
       .layout, .row { grid-template-columns: 1fr; }
       .hero-card { max-width: none; }
@@ -175,7 +221,13 @@
 <body>
   <div class="wrap">
     <div class="top">
-      <div class="brand">Zia Agents · Zoho Desk</div>
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">SD</div>
+        <div>
+          <strong>SignalDesk</strong>
+          <span>Zoho Desk</span>
+        </div>
+      </div>
       <button class="theme" type="button" id="theme">Dark mode</button>
     </div>
 
@@ -207,34 +259,6 @@
       </div>
     </div>
 
-    <div class="row" id="agents">
-      <button class="mini on" type="button" data-agent="echo">
-        <div class="face"><svg viewBox="0 0 120 96" aria-hidden="true"><circle cx="60" cy="38" r="18" fill="#fff" stroke="#1d2433" stroke-width="2"/><path d="M42 36c2-14 34-16 38 2-8-8-28-8-38-2z" fill="#1d2433"/><circle cx="54" cy="40" r="2" fill="#1d2433"/><circle cx="68" cy="40" r="2" fill="#1d2433"/><path d="M55 46c3 3 8 3 11 0" fill="none" stroke="#1d2433" stroke-width="1.6" stroke-linecap="round"/><path d="M28 96c4-22 18-30 32-30s28 8 32 30" fill="#0c8f4e" stroke="#1d2433" stroke-width="2"/></svg></div>
-        <div class="banner" style="background:#0c8f4e">EchoMark</div>
-        <p>Finds the same issue.</p>
-      </button>
-      <button class="mini" type="button" data-agent="dawn">
-        <div class="face"><svg viewBox="0 0 120 96" aria-hidden="true"><circle cx="60" cy="40" r="18" fill="#fff" stroke="#1d2433" stroke-width="2"/><path d="M44 34c0-12 32-14 34 2-6-10-26-10-34-2z" fill="#5b4636"/><circle cx="54" cy="42" r="2" fill="#1d2433"/><circle cx="68" cy="42" r="2" fill="#1d2433"/><path d="M55 48c3 3 8 3 11 0" fill="none" stroke="#1d2433" stroke-width="1.6" stroke-linecap="round"/><path d="M28 96c4-22 18-30 32-30s28 8 32 30" fill="#2f6fed" stroke="#1d2433" stroke-width="2"/></svg></div>
-        <div class="banner" style="background:#2f6fed">DawnTally</div>
-        <p>Sums up yesterday.</p>
-      </button>
-      <button class="mini" type="button" data-agent="nest">
-        <div class="face"><svg viewBox="0 0 120 96" aria-hidden="true"><circle cx="60" cy="40" r="18" fill="#fff" stroke="#1d2433" stroke-width="2"/><path d="M42 38c2-16 36-16 38 0-10-8-28-8-38 0z" fill="#1d2433"/><circle cx="54" cy="42" r="2" fill="#1d2433"/><circle cx="68" cy="42" r="2" fill="#1d2433"/><path d="M55 48c3 3 8 3 11 0" fill="none" stroke="#1d2433" stroke-width="1.6" stroke-linecap="round"/><path d="M28 96c4-22 18-30 32-30s28 8 32 30" fill="#f5a623" stroke="#1d2433" stroke-width="2"/></svg></div>
-        <div class="banner" style="background:#f5a623">NestPin</div>
-        <p>Adds a new matching ticket.</p>
-      </button>
-      <button class="mini" type="button" data-agent="bell">
-        <div class="face"><svg viewBox="0 0 120 96" aria-hidden="true"><circle cx="60" cy="40" r="18" fill="#fff" stroke="#1d2433" stroke-width="2"/><path d="M40 46c2-24 38-26 42-2-8-16-32-16-42 2z" fill="#2a211c"/><circle cx="54" cy="42" r="2" fill="#1d2433"/><circle cx="68" cy="42" r="2" fill="#1d2433"/><path d="M55 48c3 3 8 3 11 0" fill="none" stroke="#1d2433" stroke-width="1.6" stroke-linecap="round"/><path d="M28 96c4-22 18-30 32-30s28 8 32 30" fill="#e85d8c" stroke="#1d2433" stroke-width="2"/></svg></div>
-        <div class="banner" style="background:#e85d8c">FirstBell</div>
-        <p>Shows what to open first.</p>
-      </button>
-    </div>
-
-    <article class="card" id="explain">
-      <h2 id="explain-title">EchoMark</h2>
-      <p id="explain-body">It reads yesterday’s tickets. When 5 or more are about the same problem, it makes one parent ticket, tags them incident, and assigns the Incident team.</p>
-    </article>
-
     <article class="card">
       <h2>Watch it work</h2>
       <div class="steps">
@@ -264,6 +288,87 @@
       <p class="muted" id="note">Press Play. The login tickets become one incident. The invoice ticket stays out.</p>
     </article>
 
+    <div class="row" id="agents">
+      <button class="mini on" type="button" data-agent="echo">
+        <div class="face"><svg viewBox="0 0 120 96" aria-hidden="true"><circle cx="60" cy="38" r="18" fill="#fff" stroke="#1d2433" stroke-width="2"/><path d="M42 36c2-14 34-16 38 2-8-8-28-8-38-2z" fill="#1d2433"/><circle cx="54" cy="40" r="2" fill="#1d2433"/><circle cx="68" cy="40" r="2" fill="#1d2433"/><path d="M55 46c3 3 8 3 11 0" fill="none" stroke="#1d2433" stroke-width="1.6" stroke-linecap="round"/><path d="M28 96c4-22 18-30 32-30s28 8 32 30" fill="#0c8f4e" stroke="#1d2433" stroke-width="2"/></svg></div>
+        <div class="banner" style="background:#0c8f4e">EchoMark</div>
+        <p>Finds the same issue.</p>
+      </button>
+      <button class="mini" type="button" data-agent="dawn">
+        <div class="face"><svg viewBox="0 0 120 96" aria-hidden="true"><circle cx="60" cy="40" r="18" fill="#fff" stroke="#1d2433" stroke-width="2"/><path d="M44 34c0-12 32-14 34 2-6-10-26-10-34-2z" fill="#5b4636"/><circle cx="54" cy="42" r="2" fill="#1d2433"/><circle cx="68" cy="42" r="2" fill="#1d2433"/><path d="M55 48c3 3 8 3 11 0" fill="none" stroke="#1d2433" stroke-width="1.6" stroke-linecap="round"/><path d="M28 96c4-22 18-30 32-30s28 8 32 30" fill="#2f6fed" stroke="#1d2433" stroke-width="2"/></svg></div>
+        <div class="banner" style="background:#2f6fed">DawnTally</div>
+        <p>Sums up yesterday.</p>
+      </button>
+      <button class="mini" type="button" data-agent="nest">
+        <div class="face"><svg viewBox="0 0 120 96" aria-hidden="true"><circle cx="60" cy="40" r="18" fill="#fff" stroke="#1d2433" stroke-width="2"/><path d="M42 38c2-16 36-16 38 0-10-8-28-8-38 0z" fill="#1d2433"/><circle cx="54" cy="42" r="2" fill="#1d2433"/><circle cx="68" cy="42" r="2" fill="#1d2433"/><path d="M55 48c3 3 8 3 11 0" fill="none" stroke="#1d2433" stroke-width="1.6" stroke-linecap="round"/><path d="M28 96c4-22 18-30 32-30s28 8 32 30" fill="#f5a623" stroke="#1d2433" stroke-width="2"/></svg></div>
+        <div class="banner" style="background:#f5a623">NestPin</div>
+        <p>Adds a new matching ticket.</p>
+      </button>
+      <button class="mini" type="button" data-agent="bell">
+        <div class="face"><svg viewBox="0 0 120 96" aria-hidden="true"><circle cx="60" cy="40" r="18" fill="#fff" stroke="#1d2433" stroke-width="2"/><path d="M40 46c2-24 38-26 42-2-8-16-32-16-42 2z" fill="#2a211c"/><circle cx="54" cy="42" r="2" fill="#1d2433"/><circle cx="68" cy="42" r="2" fill="#1d2433"/><path d="M55 48c3 3 8 3 11 0" fill="none" stroke="#1d2433" stroke-width="1.6" stroke-linecap="round"/><path d="M28 96c4-22 18-30 32-30s28 8 32 30" fill="#e85d8c" stroke="#1d2433" stroke-width="2"/></svg></div>
+        <div class="banner" style="background:#e85d8c">FirstBell</div>
+        <p>Shows what to open first.</p>
+      </button>
+    </div>
+
+    <article class="card" id="explain">
+      <h2 id="explain-title">EchoMark</h2>
+      <p id="explain-body">It reads yesterday’s tickets. When 5 or more are about the same problem, it makes one parent ticket, tags them incident, and assigns the Incident team.</p>
+    </article>
+
+    <article class="card">
+      <h2 id="api-title">EchoMark calls</h2>
+      <p class="muted">Pick an agent above. This list shows only that agent’s calls. Scroll inside the box. Every call sends the header <b>orgId</b>.</p>
+      <div class="api" id="api-list">
+        <div class="call" data-agents="echo">
+          <b>1. Read yesterday’s tickets</b>
+          <span class="verb">GET</span><code>/api/v1/tickets</code>
+          <pre>departmentId, limit=100, sortBy=-createdTime
+include=assignee,contacts</pre>
+        </div>
+        <div class="call" data-agents="echo">
+          <b>2. Create the incident parent</b>
+          <span class="verb">POST</span><code>/api/v1/tickets</code>
+          <pre>subject: INC: Cannot log in
+departmentId, teamId, status: Open, priority: High</pre>
+        </div>
+        <div class="call" data-agents="echo nest">
+          <b>3. Give the ticket to the Incident team</b>
+          <span class="verb">PATCH</span><code>/api/v1/tickets/{ticket_id}</code>
+          <pre>teamId: incident team id
+Keep the current owner.</pre>
+        </div>
+        <div class="call" data-agents="echo nest">
+          <b>4. Tag the ticket as an incident</b>
+          <span class="verb">POST</span><code>/api/v1/tickets/{ticket_id}/associateTag</code>
+          <pre>tags: ["incident"]</pre>
+        </div>
+        <div class="call" data-agents="dawn bell">
+          <b>1. Read the Incident team’s tickets</b>
+          <span class="verb">GET</span><code>/api/v1/tickets</code>
+          <pre>departmentId, teamIds, limit=100, include=assignee</pre>
+        </div>
+        <div class="call" data-agents="echo dawn nest bell">
+          <b>Write a private note on the parent</b>
+          <span class="verb">POST</span><code>/api/v1/tickets/{ticket_id}/comments</code>
+          <pre>isPublic: false
+content: summary, counts, or "Linked #10440"</pre>
+        </div>
+        <div class="call" data-agents="nest">
+          <b>2. Add the new ticket as a child</b>
+          <span class="verb">POST</span><code>/api/v1/tickets/{parent_ticket_id}/associate</code>
+          <pre>type: child
+ticketIds: [child ticket id]
+Same department. One parent per child. Up to 200 children.</pre>
+        </div>
+        <div class="call" data-agents="bell">
+          <b>2. Mark the tickets to open first</b>
+          <span class="verb">POST</span><code>/api/v1/tickets/{ticket_id}/associateTag</code>
+          <pre>tags: ["start-here"]</pre>
+        </div>
+      </div>
+    </article>
+
     <article class="card">
       <h2>Set up in Zoho Desk</h2>
       <ul>
@@ -290,7 +395,19 @@
       const [title, body] = copy[button.dataset.agent];
       document.getElementById('explain-title').textContent = title;
       document.getElementById('explain-body').textContent = body;
+      showCalls(button.dataset.agent);
     });
+
+    function showCalls(agent) {
+      document.getElementById('api-title').textContent = copy[agent][0] + ' calls';
+      const list = document.getElementById('api-list');
+      list.scrollTop = 0;
+      list.querySelectorAll('.call').forEach((call) => {
+        const agents = call.dataset.agents.split(' ');
+        call.hidden = !agents.includes(agent);
+      });
+    }
+    showCalls('echo');
 
     const stage = document.getElementById('stage');
     const note = document.getElementById('note');
